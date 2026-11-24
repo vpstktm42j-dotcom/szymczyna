@@ -2,14 +2,14 @@
 import { site } from '../data/site';
 import { assets } from '../data/assets';
 ---
-<header class="header container">
+<header class="header page">
   <a href="/" class="brand">
     <span class="brand__name">{site.name}</span>
-    <span class="mono">// {site.role}</span>
+    <span class="brand__role">// {site.role}</span>
   </a>
   <a href="/contact" class="contact">
-    Contact Me
-    <img src={assets.avatar} alt="" width="24" height="24" />
+    <span>Contact Me</span>
+    <img src={assets.avatar} alt="" width="24" height="23" />
   </a>
 </header>
 
@@ -18,14 +18,25 @@ import { assets } from '../data/assets';
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-block: 1.5rem;
+    padding-block: 24px;
   }
-  .brand { display: grid; gap: 0.1rem; text-decoration: none; }
-  .brand__name { text-transform: uppercase; letter-spacing: 0.02em; color: var(--text); }
+  .brand { display: grid; gap: 2px; text-decoration: none; }
+  .brand__name {
+    font-size: 20px; line-height: 22px; letter-spacing: -0.02em;
+    text-transform: uppercase; color: var(--text);
+  }
+  .brand__role {
+    font: 11px/1.2 var(--font-mono);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
   .contact {
-    display: inline-flex; align-items: center; gap: 0.6rem;
+    display: inline-flex; align-items: center; gap: 12px;
     text-decoration: none; color: var(--text);
+    transition: color 0.2s ease;
   }
   .contact:hover { color: var(--accent); }
-  .contact img { border-radius: 50%; }
+  @media (max-width: 809px) {
+    .brand__name { font-size: 16px; }
+  }
 </style>

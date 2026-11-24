@@ -1,47 +1,33 @@
 ---
 import Base from '../layouts/Base.astro';
+import ContactMedia from '../components/ContactMedia.astro';
+import ContactForm from '../components/ContactForm.astro';
 import { site } from '../data/site';
-const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT;
-const { contact } = site;
 ---
 <Base title={`Contact — ${site.name}`}>
-  <section class="contact container">
-    <h1>Contact Me</h1>
-    <p class="intro">{contact.intro}</p>
-
-    <ul class="channels">
-      <li class="card"><a href={`mailto:${contact.email}`}><strong>Email</strong><span>{contact.email}</span></a></li>
-      <li class="card"><a href={contact.linkedin} target="_blank" rel="noopener"><strong>LinkedIn</strong><span>Connect with me</span></a></li>
-      <li class="card"><a href={contact.whatsapp} target="_blank" rel="noopener"><strong>WhatsApp</strong><span>Chat with me</span></a></li>
-    </ul>
-
-    {endpoint && (
-      <form class="form card" action={endpoint} method="POST">
-        <label>Name<input name="name" type="text" placeholder="Your name" required autocomplete="name" /></label>
-        <label>Email<input name="email" type="email" placeholder="you@company.com" required autocomplete="email" /></label>
-        <label>Subject<input name="subject" type="text" placeholder="Let me know how I can help you" /></label>
-        <label>Message<textarea name="message" rows="5" placeholder="Project inquiry, freelance collaboration, or just saying hi..." required></textarea></label>
-        <button class="btn" type="submit">Send message</button>
-      </form>
-    )}
+  <section class="contact page">
+    <div class="info">
+      <h1>Contact Me</h1>
+      <p class="intro">{site.contact.intro}</p>
+      <ContactMedia />
+    </div>
+    <ContactForm />
   </section>
 </Base>
 
 <style>
-  .contact { padding-block: 3rem; max-width: 760px; }
-  h1 { font-size: clamp(2rem, 4vw, 2.75rem); }
-  .intro { max-width: 52ch; margin: 1rem 0 2.5rem; }
-  .channels { list-style: none; padding: 0; margin: 0 0 2.5rem; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-  .channels a { display: grid; gap: 0.25rem; padding: 1.25rem 1.5rem; text-decoration: none; }
-  .channels strong { color: var(--ink); font-family: var(--font-display); }
-  .channels span { font-size: 0.9rem; overflow-wrap: anywhere; }
-  .channels li:hover { border-color: var(--accent); }
-  .form { display: grid; gap: 1.25rem; padding: 2rem; }
-  label { display: grid; gap: 0.4rem; font-weight: 500; color: var(--ink); font-size: 0.9rem; }
-  input, textarea {
-    font: inherit; font-weight: 400; color: var(--ink);
-    padding: 0.8rem 1rem; border-radius: 12px;
-    border: 1px solid var(--border); background: var(--bg);
+  .contact {
+    display: grid;
+    grid-template-columns: minmax(0, 305px) minmax(0, 477px);
+    justify-content: center;
+    align-items: start;
+    gap: 96px;
+    padding-block: 96px;
   }
-  .form .btn { justify-self: start; }
+  .info { display: grid; gap: 32px; padding-top: 24px; }
+  h1 { font: 700 30px/1 var(--font-display); letter-spacing: -0.02em; color: var(--ink-strong); }
+  .intro { font-size: 16px; line-height: 1.5; color: var(--text-soft); }
+  @media (max-width: 809px) {
+    .contact { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-block: 48px; }
+  }
 </style>

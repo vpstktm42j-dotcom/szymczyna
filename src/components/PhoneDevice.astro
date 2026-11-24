@@ -1,0 +1,41 @@
+---
+interface Props { src: string; alt: string; index: number }
+const { src, alt, index } = Astro.props;
+---
+<figure class="phone" data-phone={index}>
+  <img src={src} alt={alt} width="412" height="896" loading={index < 2 ? 'eager' : 'lazy'} decoding="async" />
+</figure>
+
+<style>
+  /* Silver phone frame drawn in CSS (screens are plain screenshots) */
+  .phone {
+    position: absolute;
+    top: 50%;
+    left: var(--phone-left, 26%);
+    width: var(--phone-w, 297px);
+    aspect-ratio: 297 / 645;
+    margin: 0;
+    padding: 3.2%;
+    border-radius: 15% / 7%;
+    background: linear-gradient(135deg, #f4f5f7 0%, #d4d7dc 45%, #eef0f2 70%, #c4c8ce 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.9),
+      inset 0 0 0 3px #a9aeb6,
+      0 40px 60px -30px rgba(15, 24, 38, 0.45);
+    transform: translate(var(--x, 0px), calc(-50% + var(--y, 0px))) scale(var(--s, 1));
+    opacity: var(--o, 0);
+    transition:
+      transform 0.9s var(--ease-out),
+      opacity 0.7s ease;
+    will-change: transform, opacity;
+  }
+  .phone img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 12% / 5.5%;
+    outline: 3px solid #111;
+    background: #111;
+  }
+</style>

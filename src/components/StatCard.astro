@@ -3,17 +3,24 @@ import type { Stat } from '../data/projects';
 interface Props { stat: Stat }
 const { stat } = Astro.props;
 ---
-<article class="stat card">
-  <h3>{stat.value}</h3>
-  {stat.label && <p class="label">{stat.label}</p>}
-  <hr />
-  <p class="text">{stat.text}</p>
+<article class="stat glass">
+  <div class="stat__inner">
+    <h3>{stat.value}</h3>
+    {stat.label && <p class="label">{stat.label}</p>}
+    <hr />
+    <p class="text">{stat.text}</p>
+  </div>
 </article>
 
 <style>
-  .stat { padding: 1.5rem; font-family: var(--font-display); display: flex; flex-direction: column; }
-  h3 { font-size: 1.5rem; color: var(--ink-strong); }
-  .label { margin: 0.4rem 0 0; font-size: 0.9rem; font-weight: 600; color: var(--text); }
-  hr { width: 2.5rem; border: 0; border-top: 2px solid var(--accent); margin: 1rem 0; }
-  .text { margin: 0; color: var(--text-soft); }
+  .stat { width: 100%; padding: 32px 64px 32px 32px; font-family: var(--font-display); }
+  .stat__inner { max-width: 404px; padding-top: 24px; }
+  h3 { font-size: 30px; line-height: 1; letter-spacing: -0.02em; font-weight: 700; color: var(--ink-strong); }
+  .label { margin-top: 8px; font-size: 14.4px; line-height: 1.5; font-weight: 600; color: var(--text); }
+  hr { width: 40px; margin: 16px 0; border: 0; border-top: 1.5px solid var(--ink); }
+  .text { font-size: 16px; line-height: 1.5; color: var(--text-soft); }
+  @media (max-width: 809px) {
+    .stat { padding: 32px; }
+    .stat__inner { padding-top: 0; }
+  }
 </style>

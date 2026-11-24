@@ -1,82 +1,143 @@
 ---
 import { site } from '../data/site';
 import { assets } from '../data/assets';
----
-<section id="hero" class="hero container">
-  <h1>{site.headline}<span class="dot">.</span></h1>
 
-  <div class="signal" aria-hidden="true">
-    <span class="bits">01010011010</span>
-    <svg viewBox="0 0 600 40" preserveAspectRatio="none">
-      <path d="M0 20 C 20 5, 30 35, 50 20 S 80 0, 100 20 S 140 30, 170 20 S 230 18, 300 20 L 600 20"
-        fill="none" stroke="currentColor" stroke-width="1.5" />
-    </svg>
-    <a class="btn" href="#projects">View Projects <span aria-hidden="true">»</span></a>
+const photos = [assets.photo01, assets.photo02, assets.photo03, assets.photo04, assets.photo05, assets.photo06];
+---
+<section id="hero" class="hero">
+  <div class="page">
+    <h1>{site.headline}<span class="dot">.</span></h1>
+
+    <div class="signal">
+      <img class="bits" src={assets.bits} alt="" width="142" height="18" />
+      <svg class="chaotic" viewBox="0 0 325 15.76" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 0 12 L 1.5 10.872 L 5.5 4.372 L 10 11.872 L 19 15.5 L 24 5.5 L 26 1 C 26 1 25.774 0.563 23.5 0.079 C 21.226 -0.405 19.548 1.416 19 3.353 C 17.904 7.228 22.86 10.264 24 10.5 C 25.14 10.736 27 10.779 28.056 10.128 C 29.187 9.43 30.976 7.546 30.5 5.5 C 30.024 3.454 26.291 2.137 26 1.5 C 24.836 -1.049 49.488 11.12 55.639 11.12 C 61.79 11.12 81.518 2.058 84.597 2.058 C 88.928 2.058 91.995 15.76 93.375 15.76 C 94.755 15.76 97.365 7.873 101.355 6.761 C 105.345 5.648 107.255 9.039 109.335 11.309 C 111.415 13.579 113.325 5.68 117.714 6.306 C 122.103 6.931 125.348 13.006 135.423 13.12 C 145.497 13.234 149.397 3.96 161.603 6.533 C 192.551 16.536 210.417 8.743 210.417 8.743 C 210.417 8.743 214.392 8.243 220.5 8.243 C 223.554 8.243 249.639 8.368 275 8.243 C 300.361 8.118 325 8 325 8"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <span class="straight" aria-hidden="true"></span>
+      <a class="btn" href="#projects">
+        View Projects
+        <svg viewBox="0 0 8 9.6" aria-hidden="true"><path d="M0 0l4 4 4-4M0 5.6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </a>
+    </div>
+
+    <p class="intro">{site.intro}</p>
+
+    <div class="proof">
+      <ul class="highlights">
+        {site.highlights.map((h) => (
+          <li class="glass-light">
+            <strong>{h.value}</strong>
+            <span>{h.label}</span>
+          </li>
+        ))}
+      </ul>
+      <ul class="logos" aria-label="Organisations I have worked with">
+        <li><img src={assets.logoMotorola} alt="Motorola Solutions" width="100" height="86" /></li>
+        <li><img src={assets.logoFoundation} alt="Ayola Foundation" width="200" height="95" /></li>
+        <li><img src={assets.logoAgh} alt="AGH University of Krakow" width="64" height="101" /></li>
+      </ul>
+    </div>
   </div>
 
-  <p class="intro">{site.intro}</p>
-
-  <ul class="highlights">
-    {site.highlights.map((h) => (
-      <li class="card">
-        <strong>{h.value}</strong>
-        <span>{h.label}</span>
-      </li>
+  <ul class="photos" aria-label="Research and workshop photos">
+    {photos.map((src, i) => (
+      <li><img src={src} alt="" width="227" height="151" loading={i < 3 ? 'eager' : 'lazy'} /></li>
     ))}
-  </ul>
-
-  <ul class="logos" aria-label="Organisations I have worked with">
-    <li><img src={assets.logoMotorola} alt="Motorola Solutions" height="43" loading="lazy" /></li>
-    <li><img src={assets.logoFoundation} alt="Ayola Foundation" height="47" loading="lazy" /></li>
-    <li><img src={assets.logoAgh} alt="AGH University of Krakow" height="50" loading="lazy" /></li>
   </ul>
 </section>
 
 <style>
-  .hero { padding-block: 3rem 5rem; }
+  .hero { padding-top: 32px; }
   h1 {
+    max-width: 648px;
     font-family: var(--font-sans);
-    font-size: clamp(2.2rem, 5vw, 3.25rem);
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
     font-weight: 700;
-    max-width: 20ch;
-    letter-spacing: -0.02em;
   }
   .dot { color: var(--accent); }
 
+  /* "0101…" bits → chaotic signal → clean line → button */
   .signal {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-block: 3rem 2.5rem;
+    height: 87px;
+    margin-top: 48px;
     color: var(--ink);
   }
-  .bits { font-family: var(--font-mono); font-size: 0.85rem; }
-  .signal svg { width: 100%; height: 40px; }
-
-  .intro { max-width: 46ch; margin: 0 0 3rem; }
-
-  .highlights {
-    list-style: none; padding: 0; margin: 0 auto 3rem;
-    display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem;
+  .bits { flex: 0 0 auto; width: 142px; height: auto; }
+  .chaotic {
+    flex: 0 0 325px;
+    height: 16px;
+    overflow: visible;
   }
+  .straight {
+    flex: 1 1 auto;
+    height: 2px;
+    margin-top: 0.5px;
+    background: radial-gradient(100% 288% at 0% 50%, #0f1826 0%, #50668a 47%, rgba(80, 102, 138, 0.23) 78.5%, rgba(80, 102, 138, 0) 100%);
+  }
+  .signal .btn { flex: 0 0 auto; margin-left: 16px; }
+
+  .intro {
+    max-width: 500px;
+    margin-top: 40px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .proof {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin-top: 48px;
+  }
+  .highlights { list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; }
   .highlights li {
-    display: grid; gap: 0.75rem;
-    min-width: 9.5rem; padding: 1.25rem 1.5rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    width: 224px; height: 134px; padding: 32px 24px 32px 32px;
     font-family: var(--font-display);
   }
-  .highlights strong { font-size: 1.5rem; color: var(--ink-strong); }
-  .highlights span { color: var(--text-soft); font-size: 0.95rem; }
+  .highlights strong { font-size: 30px; line-height: 1; letter-spacing: -0.02em; color: var(--ink-strong); }
+  .highlights span { font-size: 16px; line-height: 1.5; color: var(--text-soft); }
 
-  .logos {
-    list-style: none; padding: 0; margin: 0;
-    display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 3rem;
+  .logos { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 16px; }
+  .logos img { height: auto; }
+
+  .photos {
+    list-style: none;
+    margin: 64px 0 0;
+    padding: 0 0 64px;
+    display: flex;
+    gap: 16px;
+    overflow: hidden;
   }
-  .logos img { width: auto; filter: grayscale(1); opacity: 0.85; }
+  .photos li { flex: 1 0 160px; }
+  .photos img {
+    width: 100%;
+    aspect-ratio: 227 / 151;
+    object-fit: cover;
+    border-radius: 16px;
+  }
 
-  @media (max-width: 640px) {
-    .signal { grid-template-columns: 1fr; }
-    .signal svg, .bits { display: none; }
-    .signal .btn { justify-self: start; }
+  @media (max-width: 1199px) {
+    h1 { font-size: 48px; }
+    .chaotic { flex-basis: 220px; }
+  }
+  @media (max-width: 809px) {
+    h1 { font-size: 36px; }
+    .signal { flex-wrap: wrap; height: auto; row-gap: 24px; }
+    .chaotic { flex: 1 1 0; min-width: 0; }
+    .straight { display: none; }
+    .signal .btn { margin-left: 0; }
+    .proof { flex-direction: column; align-items: flex-start; }
+    .highlights li { width: auto; flex: 1; min-width: 150px; padding: 24px; }
+    .logos img { transform: scale(0.8); }
+    .photos { overflow-x: auto; scroll-snap-type: x mandatory; padding-inline: var(--page-pad); scrollbar-width: none; }
+    .photos li { flex: 0 0 70%; scroll-snap-align: center; }
   }
 </style>

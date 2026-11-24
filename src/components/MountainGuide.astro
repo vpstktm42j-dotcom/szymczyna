@@ -1,0 +1,95 @@
+---
+import { mountainGuide as project } from '../data/projects';
+import ProjectIntro from './ProjectIntro.astro';
+import StatCard from './StatCard.astro';
+import ContactCta from './ContactCta.astro';
+import PhoneDevice from './PhoneDevice.astro';
+
+// Each card "owns" one or more phone screens. While a card scrolls past,
+// the phone deck on the left switches to that card's screens.
+let start = 0;
+const steps = [...project.stats.map((stat) => ({ stat })), { closing: project.closing }].map((s) => {
+  const screens = ('stat' in s ? s.stat?.screens : s.closing?.screens) ?? [];
+  const step = { ...s, start, count: screens.length, height: Math.max(screens.length, 1.5) };
+  start += screens.length;
+  return step;
+});
+const screens = steps.flatMap((s) => ('stat' in s ? s.stat?.screens : s.closing?.screens) ?? []);
+---
+<section id={project.id} class="project">
+  <ProjectIntro project={project} />
+
+  <div class="scrolly" data-phone-scrolly>
+    <div class="stage" aria-hidden="true">
+      <div class="deck" data-deck>
+        {screens.map((src, i) => <PhoneDevice src={src} alt={`${project.title}, screen ${i + 1}`} index={i} />)}
+      </div>
+    </div>
+
+    <div class="steps">
+      {steps.map((step) => (
+        <div class="step" data-step data-start={step.start} data-count={step.count} style={`--h: ${step.height}`}>
+          <div class="step__sticky">
+            {'stat' in step && step.stat ? <StatCard stat={step.stat} /> : <ContactCta value={project.closing.value} text={project.closing.text} />}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .project {
+    background: linear-gradient(180deg, rgba(221, 236, 229, 0.5) 0%, #b8e3cd 26.3%, #cae5ed 64.7%, rgba(24, 162, 184, 0.5) 100%);
+  }
+  .scrolly {
+    display: grid;
+    grid-template-columns: minmax(0, 592px) minmax(0, 592px);
+    justify-content: center;
+    padding-inline: var(--page-pad);
+    margin-top: 16px;
+  }
+  .stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    align-self: start;
+    z-index: 0;
+  }
+  .deck {
+    position: relative;
+    height: 100%;
+    --phone-w: min(297px, 33vh);
+    --phone-left: 26.7%;
+    --u: 1px;
+  }
+  .steps { position: relative; z-index: 1; }
+  .step { position: relative; height: calc(var(--h) * 100vh); }
+  .step__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+  .step:last-child .step__sticky { z-index: 2; }
+
+  /* Deck positions, set by data-k = phone index − active index */
+  .deck :global([data-k='0'])  { --x: 0px; --y: 0px; --s: 1; --o: 1; z-index: 3; }
+  .deck :global([data-k='1'])  { --x: calc(305 * var(--u)); --y: calc(124 * var(--u)); --s: 0.81; --o: 0.45; z-index: 2; }
+  .deck :global([data-k='far']) { --x: calc(550 * var(--u)); --y: calc(176 * var(--u)); --s: 0.72; --o: 0; z-index: 1; }
+  .deck :global([data-k='-1']) { --x: calc(-250 * var(--u)); --y: calc(150 * var(--u)); --s: 0.8; --o: 0.45; z-index: 1; }
+  .deck :global([data-k='past']) { --x: calc(-250 * var(--u)); --y: calc(150 * var(--u)); --s: 0.8; --o: 0; z-index: 0; }
+
+  @media (max-width: 809px) {
+    .scrolly { grid-template-columns: minmax(0, 1fr); padding-inline: 0; }
+    .stage, .steps { grid-area: 1 / 1; }
+    .stage { overflow: hidden; }
+    .steps { padding-inline: var(--page-pad); }
+    .step__sticky { align-items: flex-start; padding-top: 32px; }
+    .deck { --phone-w: min(300px, 78vw); --phone-left: calc(50% - var(--phone-w) / 2); --u: 0.9px; }
+    .deck :global([data-k='-1']) { --o: 0; }
+  }
+</style>
