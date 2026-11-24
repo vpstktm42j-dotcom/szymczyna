@@ -1,0 +1,31 @@
+---
+import { site } from '../data/site';
+import { assets } from '../data/assets';
+---
+<header class="header container">
+  <a href="/" class="brand">
+    <span class="brand__name">{site.name}</span>
+    <span class="mono">// {site.role}</span>
+  </a>
+  <a href="/contact" class="contact">
+    Contact Me
+    <img src={assets.avatar} alt="" width="24" height="24" />
+  </a>
+</header>
+
+<style>
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1.5rem;
+  }
+  .brand { display: grid; gap: 0.1rem; text-decoration: none; }
+  .brand__name { text-transform: uppercase; letter-spacing: 0.02em; color: var(--text); }
+  .contact {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    text-decoration: none; color: var(--text);
+  }
+  .contact:hover { color: var(--accent); }
+  .contact img { border-radius: 50%; }
+</style>

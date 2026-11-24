@@ -1,0 +1,82 @@
+---
+import { site } from '../data/site';
+import { assets } from '../data/assets';
+---
+<section id="hero" class="hero container">
+  <h1>{site.headline}<span class="dot">.</span></h1>
+
+  <div class="signal" aria-hidden="true">
+    <span class="bits">01010011010</span>
+    <svg viewBox="0 0 600 40" preserveAspectRatio="none">
+      <path d="M0 20 C 20 5, 30 35, 50 20 S 80 0, 100 20 S 140 30, 170 20 S 230 18, 300 20 L 600 20"
+        fill="none" stroke="currentColor" stroke-width="1.5" />
+    </svg>
+    <a class="btn" href="#projects">View Projects <span aria-hidden="true">»</span></a>
+  </div>
+
+  <p class="intro">{site.intro}</p>
+
+  <ul class="highlights">
+    {site.highlights.map((h) => (
+      <li class="card">
+        <strong>{h.value}</strong>
+        <span>{h.label}</span>
+      </li>
+    ))}
+  </ul>
+
+  <ul class="logos" aria-label="Organisations I have worked with">
+    <li><img src={assets.logoMotorola} alt="Motorola Solutions" height="43" loading="lazy" /></li>
+    <li><img src={assets.logoFoundation} alt="Ayola Foundation" height="47" loading="lazy" /></li>
+    <li><img src={assets.logoAgh} alt="AGH University of Krakow" height="50" loading="lazy" /></li>
+  </ul>
+</section>
+
+<style>
+  .hero { padding-block: 3rem 5rem; }
+  h1 {
+    font-family: var(--font-sans);
+    font-size: clamp(2.2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    max-width: 20ch;
+    letter-spacing: -0.02em;
+  }
+  .dot { color: var(--accent); }
+
+  .signal {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    margin-block: 3rem 2.5rem;
+    color: var(--ink);
+  }
+  .bits { font-family: var(--font-mono); font-size: 0.85rem; }
+  .signal svg { width: 100%; height: 40px; }
+
+  .intro { max-width: 46ch; margin: 0 0 3rem; }
+
+  .highlights {
+    list-style: none; padding: 0; margin: 0 auto 3rem;
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .highlights li {
+    display: grid; gap: 0.75rem;
+    min-width: 9.5rem; padding: 1.25rem 1.5rem;
+    font-family: var(--font-display);
+  }
+  .highlights strong { font-size: 1.5rem; color: var(--ink-strong); }
+  .highlights span { color: var(--text-soft); font-size: 0.95rem; }
+
+  .logos {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 3rem;
+  }
+  .logos img { width: auto; filter: grayscale(1); opacity: 0.85; }
+
+  @media (max-width: 640px) {
+    .signal { grid-template-columns: 1fr; }
+    .signal svg, .bits { display: none; }
+    .signal .btn { justify-self: start; }
+  }
+</style>

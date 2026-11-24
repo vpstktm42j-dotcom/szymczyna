@@ -1,0 +1,19 @@
+---
+import type { Stat } from '../data/projects';
+interface Props { stat: Stat }
+const { stat } = Astro.props;
+---
+<article class="stat card">
+  <h3>{stat.value}</h3>
+  {stat.label && <p class="label">{stat.label}</p>}
+  <hr />
+  <p class="text">{stat.text}</p>
+</article>
+
+<style>
+  .stat { padding: 1.5rem; font-family: var(--font-display); display: flex; flex-direction: column; }
+  h3 { font-size: 1.5rem; color: var(--ink-strong); }
+  .label { margin: 0.4rem 0 0; font-size: 0.9rem; font-weight: 600; color: var(--text); }
+  hr { width: 2.5rem; border: 0; border-top: 2px solid var(--accent); margin: 1rem 0; }
+  .text { margin: 0; color: var(--text-soft); }
+</style>

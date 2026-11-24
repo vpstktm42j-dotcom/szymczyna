@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import ProjectSection from '../components/ProjectSection.astro';
+import { projects } from '../data/projects';
+---
+<Base>
+  <Hero />
+  <div id="projects">
+    <p class="selected mono container">// Selected work</p>
+    {projects.map((project) => <ProjectSection project={project} />)}
+  </div>
+</Base>
+
+<style>
+  .selected { text-align: center; font-size: 1.1rem; font-weight: 700; font-family: var(--font-display); }
+</style>

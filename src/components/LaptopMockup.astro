@@ -1,0 +1,25 @@
+---
+interface Props { screen: string; label: string }
+const { screen, label } = Astro.props;
+---
+<figure class="laptop">
+  <div class="lid">
+    <img src={screen} alt={`${label} — application screen`} loading="lazy" />
+  </div>
+  <div class="base" aria-hidden="true"></div>
+</figure>
+
+<style>
+  .laptop { margin: 1rem auto 3rem; max-width: 760px; }
+  .lid {
+    background: #111; padding: 14px 14px 18px;
+    border-radius: 18px 18px 4px 4px;
+    box-shadow: 0 25px 40px -20px rgba(15, 24, 38, 0.45);
+  }
+  .lid img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 6px; }
+  .base {
+    height: 14px; margin-inline: -6%;
+    background: linear-gradient(#d9dde3, #aeb4bd);
+    border-radius: 0 0 14px 14px;
+  }
+</style>
