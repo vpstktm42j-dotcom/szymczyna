@@ -20,15 +20,16 @@ npm run build          # static output in dist/
 | Image paths | `src/data/assets.ts` |
 | Colours, fonts, spacing | `src/styles/global.css` |
 | Page sections | `src/components/*.astro` |
+| Scroll animations, contact panel, form | `src/scripts/interactions.ts` |
 
-Adding a project = adding an object to `projects` in `src/data/projects.ts`
-(`device: 'phone'` shows a mobile carousel, `device: 'laptop'` a laptop mockup).
+Each Mountain Guide card lists the phone `screens` it shows while it scrolls past
+(`src/data/projects.ts`), so screens can be reordered or swapped there.
 
 ## Contact form
 
 Framer handled form submissions; a static site needs an external endpoint.
 Set `PUBLIC_FORM_ENDPOINT` (e.g. a Formspree URL) in `.env` or in your hosting settings.
-Without it the form is hidden and the email / LinkedIn / WhatsApp links remain.
+Without it, "Send message" opens the visitor's email app with the message already filled in.
 
 ## Deploy
 

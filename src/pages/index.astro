@@ -1,17 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import ProjectSection from '../components/ProjectSection.astro';
-import { projects } from '../data/projects';
+import MountainGuide from '../components/MountainGuide.astro';
+import TestExecute from '../components/TestExecute.astro';
 ---
-<Base>
+<Base scrollTop>
   <Hero />
   <div id="projects">
-    <p class="selected mono container">// Selected work</p>
-    {projects.map((project) => <ProjectSection project={project} />)}
+    <h2 class="selected page">// SELECTED WORK</h2>
+    <MountainGuide />
+    <TestExecute />
   </div>
 </Base>
 
 <style>
-  .selected { text-align: center; font-size: 1.1rem; font-weight: 700; font-family: var(--font-display); }
+  .selected {
+    padding-bottom: 36px;
+    font: 700 30px/1 var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
+  @media (max-width: 809px) { .selected { font-size: 24px; } }
 </style>

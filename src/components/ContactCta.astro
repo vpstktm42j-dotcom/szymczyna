@@ -1,0 +1,83 @@
+---
+import ContactMedia from './ContactMedia.astro';
+import ContactForm from './ContactForm.astro';
+interface Props { value: string; text: string }
+const { value, text } = Astro.props;
+---
+<div class="cta glass" data-cta>
+  <div class="info">
+    <h3>{value}</h3>
+    <p class="text">{text}</p>
+    <p class="why">Want to know why?</p>
+    <div class="media reveal"><ContactMedia /></div>
+  </div>
+
+  <button type="button" class="btn btn--secondary open" data-cta-open aria-expanded="false">
+    Get in touch <span aria-hidden="true">↓</span>
+  </button>
+
+  <div class="form-wrap reveal"><ContactForm /></div>
+
+  <button type="button" class="close glass-light reveal" data-cta-close aria-label="Collapse contact form">
+    <svg viewBox="0 0 18 9" aria-hidden="true"><path d="M1 8l8-7 8 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+  </button>
+</div>
+
+<style>
+  .cta {
+    position: relative;
+    flex: none;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 24px;
+    padding: 32px;
+    font-family: var(--font-display);
+    transform: translateX(var(--dx, 0px));
+    transition:
+      width 0.7s var(--ease-out),
+      transform 0.7s var(--ease-out),
+      padding 0.5s var(--ease-out);
+  }
+  .info { display: grid; gap: 16px; align-self: stretch; padding-top: 24px; }
+  h3 { font-size: 30px; line-height: 1; letter-spacing: -0.02em; font-weight: 700; color: var(--ink-strong); }
+  .text { max-width: 280px; font-size: 16px; line-height: 1.5; color: var(--text-soft); }
+  .why { font-size: 14.4px; font-weight: 600; color: var(--text); }
+  .open { align-self: center; }
+
+  .reveal { display: none; }
+  .close {
+    width: 50px; height: 50px; padding: 0;
+    display: none; place-items: center;
+    border: 0; border-radius: 50%; cursor: pointer; color: var(--ink);
+    transition: transform 0.3s var(--ease-out), background-color 0.2s ease;
+  }
+  .close:hover { transform: scale(1.08); background-color: rgba(255, 255, 255, 0.6); }
+  .close svg { width: 18px; height: 9px; }
+
+  /* Expanded state: card grows into a contact panel */
+  .cta.is-open {
+    width: var(--open-w, 960px);
+    grid-template-columns: minmax(0, 305px) minmax(0, 1fr) 50px;
+    align-items: start;
+    column-gap: 32px;
+  }
+  .cta.is-open .open { display: none; }
+  .cta.is-open .reveal { display: block; animation: fade-in 0.5s var(--ease-out) 0.15s both; }
+  .cta.is-open .close { display: grid; }
+  .cta.is-open .media { margin-top: 8px; }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 809px) {
+    .cta { grid-template-columns: 1fr; row-gap: 24px; }
+    .info { padding-top: 0; }
+    .open { justify-self: start; }
+    .cta.is-open { width: 100%; grid-template-columns: 1fr; }
+    .cta.is-open .close { position: absolute; top: 24px; right: 24px; }
+  }
+</style>

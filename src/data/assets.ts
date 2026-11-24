@@ -9,6 +9,8 @@ const framer = (id: string) => `https://framerusercontent.com/images/${id}`;
 
 export const assets = {
   avatar: framer('YnNSfM1r1JWil8vK8eLVZtcKI.png'),
+  bits: framer('qnq6M0UeooWq9Ork5mdSvDXdAI.png'),
+  iconLinkedin: framer('c9YATxeBCJnK8If9RNJcH1uVvY.png'),
 
   logoMotorola: framer('IawxqTDa7B1l1q6rbS1nhpZ4.png'),
   logoFoundation: framer('Fr51rihs4pmiQ4W9teP2Wc6thk.png'),
@@ -17,19 +19,20 @@ export const assets = {
   laurelLeft: framer('RXwO4OItWplgSohjNASN46KDyRw.png'),
   laurelRight: framer('rMkwMCmi5rDoD0lJJnKUAZVI.png'),
 
-  mg01: framer('DXbRSDTsXO75WQXU4TqVrgV4wU.png'),
-  mg02: framer('WpsRAVn0BUzpc8Wf5YRaVQnol4.png'),
-  mg03: framer('3SHnCIfzPA0Tm0lTlrKoT8gxo.png'),
-  mg04: framer('PrsdbE4gBznzf5qZUFIOwZtRzFI.png'),
-  mg05: framer('MGLSVfq488LnpHoi8YL3qbFGUTg.png'),
-  mg06: framer('3EPtet23XmnuDUb9INJJln9HFY.png'),
-  mg07: framer('tnpW05vqvLH2R3VayPhLpIbPyyo.png'),
-  mg08: framer('eT9HThqmYe8gOv0QXzbG88q22Ac.png'),
+  // Mountain Guide screens, in the order they appear while scrolling
+  mgMain: framer('eT9HThqmYe8gOv0QXzbG88q22Ac.png'),
+  mgLearning: framer('tnpW05vqvLH2R3VayPhLpIbPyyo.png'),
+  mgIsResponding: framer('3EPtet23XmnuDUb9INJJln9HFY.png'),
+  mgSafetyCheck: framer('MGLSVfq488LnpHoi8YL3qbFGUTg.png'),
+  mgCallingHelp: framer('PrsdbE4gBznzf5qZUFIOwZtRzFI.png'),
+  mgCpr: framer('3SHnCIfzPA0Tm0lTlrKoT8gxo.png'),
+  mgCprCamera: framer('WpsRAVn0BUzpc8Wf5YRaVQnol4.png'),
+  mgAiChat: framer('DXbRSDTsXO75WQXU4TqVrgV4wU.png'),
 
   testExecuteScreen: framer('ZK9aywMk7EllNrTRIDTzE7WWU.png'),
   laptopBase: framer('AqYzru1Ps6EzqNNYRV9us7j9HnE.png'),
 
-  // Photos used in a hidden/animated block on the Framer homepage (not placed yet).
+  // Photo strip under the hero
   photo01: framer('hhkgs0eu27jGNgvXRlKomZ80u90.jpeg'),
   photo02: framer('TgoC28plxOUekiMcrWvbsiqOJo.jpeg'),
   photo03: framer('YGKOdVICtxEr4aHIh3OKpDL8.jpeg'),

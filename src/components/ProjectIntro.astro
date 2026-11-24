@@ -1,0 +1,35 @@
+---
+import type { Project } from '../data/projects';
+import { assets } from '../data/assets';
+interface Props { project: Project }
+const { project } = Astro.props;
+---
+<header class="intro page">
+  <h2>{project.number}. {project.title}.</h2>
+  {project.award && (
+    <div class="award">
+      <img src={assets.laurelLeft} alt="" width="56" height="69" />
+      <div class="award__body">
+        <img class="agh" src={assets.logoAgh} alt="AGH University" width="27" height="43" />
+        <p class="award__title">{project.award.title}</p>
+        <p class="award__sub">{project.award.subtitle}</p>
+      </div>
+      <img src={assets.laurelRight} alt="" width="56" height="69" />
+    </div>
+  )}
+  <p class="summary">{project.summary}</p>
+</header>
+
+<style>
+  .intro { padding-top: 64px; text-align: center; }
+  h2 { font-family: var(--font-display); font-size: 36px; line-height: 1.1; letter-spacing: -0.03em; font-weight: 700; }
+  .award { display: flex; justify-content: center; align-items: center; gap: 4px; margin-top: 24px; }
+  .award > img { width: 56px; height: auto; }
+  .award__body { display: grid; justify-items: center; }
+  .award__title { margin-top: 4px; font: 700 12.8px/1.2 var(--font-sans); color: var(--ink); text-transform: uppercase; }
+  .award__sub { font: 300 12px/1.4 var(--font-display); color: var(--text); }
+  .summary { max-width: 900px; margin: 24px auto 0; font-size: 16px; line-height: 1.5; color: var(--ink); }
+  @media (max-width: 809px) {
+    h2 { font-size: 28px; }
+  }
+</style>

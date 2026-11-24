@@ -1,0 +1,98 @@
+---
+import { testExecute as project } from '../data/projects';
+import { assets } from '../data/assets';
+import ProjectIntro from './ProjectIntro.astro';
+import StatCard from './StatCard.astro';
+import ContactCta from './ContactCta.astro';
+---
+<section id={project.id} class="project">
+  <ProjectIntro project={project} />
+
+  <div class="scrolly" data-laptop-scrolly>
+    <div class="stage">
+      <figure class="laptop">
+        <div class="lid" data-lid>
+          <div class="bezel">
+            <img src={project.screen} alt={`${project.title}, dashboard`} width="1600" height="1000" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <img class="base" src={assets.laptopBase} alt="" width="1161" height="73" loading="lazy" />
+      </figure>
+    </div>
+
+    <div class="steps">
+      {project.stats.map((stat) => (
+        <div class="step">
+          <div class="step__sticky"><StatCard stat={stat} /></div>
+        </div>
+      ))}
+      <div class="step step--closing">
+        <div class="step__sticky"><ContactCta value={project.closing.value} text={project.closing.text} /></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .project {
+    background: linear-gradient(180deg, rgba(24, 162, 183, 0.5) 0%, rgba(64, 165, 202, 0.5) 24.3%, rgba(107, 172, 236, 0.5) 73.7%, rgba(124, 175, 252, 0.5) 100%);
+    padding-bottom: 64px;
+  }
+  .scrolly {
+    display: grid;
+    grid-template-columns: minmax(0, 1184px);
+    justify-content: center;
+    padding-inline: var(--page-pad);
+    margin-top: 16px;
+  }
+  .stage, .steps { grid-area: 1 / 1; }
+  .stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    align-self: start;
+    perspective: 1800px;
+  }
+  .laptop {
+    position: absolute;
+    left: 50%;
+    top: 29%;
+    width: min(954px, 92%);
+    margin: 0;
+    transform: translateX(-50%);
+  }
+  .lid {
+    width: 86%;
+    margin-inline: auto;
+    transform-origin: 50% 100%;
+    transform: rotateX(var(--lid, -88deg));
+    will-change: transform;
+  }
+  .bezel {
+    padding: 2.4% 2.4% 3%;
+    border-radius: 18px 18px 4px 4px;
+    background: #0d0e10;
+    box-shadow: inset 0 0 0 2px #2a2c30, 0 30px 60px -30px rgba(15, 24, 38, 0.6);
+  }
+  .bezel img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; border-radius: 4px; }
+  .base { width: 100%; height: auto; margin-top: -1px; }
+
+  .steps { position: relative; z-index: 1; }
+  .step { height: 150vh; display: flex; justify-content: center; }
+  .step__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    width: min(532px, 100%);
+    padding-top: 32px;
+  }
+  .step--closing .step__sticky { width: min(714px, 100%); }
+  .step:last-child { height: 150vh; }
+
+  @media (max-width: 809px) {
+    .laptop { top: auto; bottom: 18%; }
+    .step__sticky { padding-top: 24px; }
+  }
+</style>

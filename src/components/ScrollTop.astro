@@ -1,0 +1,28 @@
+<a href="#main" class="scroll-top glass-light" data-scroll-top aria-label="Back to top">
+  <svg viewBox="0 0 16 18" aria-hidden="true"><path d="M8 17V1M1 8l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+</a>
+
+<style>
+  .scroll-top {
+    position: fixed;
+    right: 100px;
+    bottom: 100px;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    color: var(--ink);
+    opacity: 0;
+    transform: translateY(16px) scale(0.9);
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.45s var(--ease-out), background-color 0.2s ease;
+  }
+  .scroll-top svg { width: 16px; height: 18px; }
+  .scroll-top.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+  .scroll-top:hover { background-color: rgba(255, 255, 255, 0.6); transform: scale(1.08); }
+  @media (max-width: 809px) {
+    .scroll-top { right: 20px; bottom: 24px; width: 52px; height: 52px; }
+  }
+</style>
